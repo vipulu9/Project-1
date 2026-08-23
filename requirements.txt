@@ -1,0 +1,17 @@
+# Create a virtual environment and install dependencies:
+# python -m venv .venv
+# .\.venv\Scripts\activate  # Windows
+# source .venv/bin/activate  # macOS/Linux
+# python -m pip install -r requirements.txt
+
+requests==2.34.2
+pyttsx3==2.99
+SpeechRecognition==3.17.0
+pygame==2.6.1
+openai-whisper==20250625
+numpy==2.5.2
+gTTS==2.5.4
+openai==3.3.1
+python-dotenv==1.2.3
+PyAudio==0.2.14
+openwakeword==0.6.0
