@@ -1,0 +1,388 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Blink animation for critical nodes */
+  .animate-blink-critical {
+    animation: blink-critical 1.2s ease-in-out infinite;
+  }
+  /* Blink animation for offline nodes */
+  .animate-blink-offline {
+    animation: blink-offline 2s ease-in-out infinite;
+  }
+}
+
+@keyframes blink-critical {
+  0%, 100% { box-shadow: 0 0 6px 1px rgba(239,68,68,0.3); border-color: rgba(239,68,68,0.5); }
+  50%       { box-shadow: 0 0 18px 4px rgba(239,68,68,0.8); border-color: rgba(239,68,68,1); }
+}
+
+@keyframes blink-offline {
+  0%, 100% { opacity: 0.55; box-shadow: none; }
+  50%       { opacity: 0.85; box-shadow: 0 0 10px 2px rgba(100,116,139,0.4); }
+}
+
+/* Audit trail – new bubble slide-in */
+.animate-slide-in {
+  animation: slide-in-bubble 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes slide-in-bubble {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Audit trail – agent tab active glow pulse */
+.animate-agent-active {
+  animation: agent-active-glow 1.4s ease-in-out infinite;
+}
+@keyframes agent-active-glow {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+  50%       { box-shadow: 0 0 8px 2px currentColor; opacity: 0.85; }
+}
+
+/*
+  All theme variable sets live in ONE @layer base block.
+  Source order within a layer is the tiebreaker for equal-specificity rules.
+  :root   -> baseline defaults (html/body background, no theme class needed)
+  .theme-* -> applied to the AppShell wrapper div; cascades to all children
+  Each .theme-* class comes AFTER :root so it wins when both match.
+*/
+@layer base {
+  /* ── Baseline (html / body) ── */
+  :root {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 213 94% 68%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 217 33% 20%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 20%;
+    --input: 217 33% 17%;
+    --ring: 213 94% 68%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Dark NOC (deep navy — same as baseline, explicit class for the div) ── */
+  .theme-dark-noc {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 213 94% 68%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 217 33% 20%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 20%;
+    --input: 217 33% 17%;
+    --ring: 213 94% 68%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Midnight (true black, violet accent) ── */
+  .theme-midnight {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 258 90% 70%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 96%;
+    --border: 0 0% 18%;
+    --input: 0 0% 14%;
+    --ring: 258 90% 70%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Slate (charcoal gray, cyan accent) ── */
+  .theme-slate {
+    --background: 215 25% 9%;
+    --foreground: 210 20% 95%;
+    --card: 215 25% 13%;
+    --card-foreground: 210 20% 95%;
+    --popover: 215 25% 11%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 199 89% 60%;
+    --primary-foreground: 215 25% 9%;
+    --secondary: 215 20% 20%;
+    --secondary-foreground: 210 20% 95%;
+    --muted: 215 20% 20%;
+    --muted-foreground: 215 15% 52%;
+    --accent: 215 20% 24%;
+    --accent-foreground: 210 20% 95%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 95%;
+    --border: 215 20% 23%;
+    --input: 215 20% 20%;
+    --ring: 199 89% 60%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Ocean (deep teal, green accent) ── */
+  .theme-ocean {
+    --background: 196 50% 6%;
+    --foreground: 180 30% 96%;
+    --card: 196 50% 10%;
+    --card-foreground: 180 30% 96%;
+    --popover: 196 50% 8%;
+    --popover-foreground: 180 30% 96%;
+    --primary: 172 66% 50%;
+    --primary-foreground: 196 50% 6%;
+    --secondary: 196 40% 16%;
+    --secondary-foreground: 180 30% 96%;
+    --muted: 196 40% 16%;
+    --muted-foreground: 196 20% 52%;
+    --accent: 196 40% 20%;
+    --accent-foreground: 180 30% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 180 30% 96%;
+    --border: 196 40% 20%;
+    --input: 196 40% 16%;
+    --ring: 172 66% 50%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Crimson NOC (dark maroon, red accent) ── */
+  .theme-crimson {
+    --background: 355 30% 6%;
+    --foreground: 0 20% 96%;
+    --card: 355 30% 10%;
+    --card-foreground: 0 20% 96%;
+    --popover: 355 30% 8%;
+    --popover-foreground: 0 20% 96%;
+    --primary: 4 90% 62%;
+    --primary-foreground: 355 30% 6%;
+    --secondary: 355 25% 17%;
+    --secondary-foreground: 0 20% 96%;
+    --muted: 355 25% 17%;
+    --muted-foreground: 355 15% 52%;
+    --accent: 355 25% 21%;
+    --accent-foreground: 0 20% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 20% 96%;
+    --border: 355 25% 21%;
+    --input: 355 25% 17%;
+    --ring: 4 90% 62%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Capgemini (official brand palette: #0070AD primary, #12ABDB cyan) ── */
+  .theme-capgemini {
+    --background: 218 65% 6%;
+    --foreground: 210 30% 97%;
+    --card: 218 62% 10%;
+    --card-foreground: 210 30% 97%;
+    --popover: 218 63% 8%;
+    --popover-foreground: 210 30% 97%;
+    --primary: 199 100% 46%;
+    --primary-foreground: 218 65% 6%;
+    --secondary: 218 50% 17%;
+    --secondary-foreground: 210 30% 97%;
+    --muted: 218 50% 17%;
+    --muted-foreground: 215 20% 54%;
+    --accent: 218 50% 21%;
+    --accent-foreground: 210 30% 97%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 30% 97%;
+    --border: 218 50% 21%;
+    --input: 218 50% 17%;
+    --ring: 199 100% 46%;
+    --radius: 0.5rem;
+  }
+
+  /* ── Light ── */
+  .theme-light {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 84% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 93%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 20% 93%;
+    --muted-foreground: 215 20% 40%;
+    --accent: 210 20% 90%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 20% 86%;
+    --input: 214 20% 86%;
+    --ring: 222 84% 50%;
+    --radius: 0.5rem;
+  }
+}
+
+/* ── Base element styles ── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 9999px;
+  }
+}
+
+@media screen and (max-width: 1350px) {
+ .agent-name{
+    font-size: 13px
+  }
+}
+
+@media screen and (max-width: 1180px) {
+ .agent-name{
+    font-size: 10px
+  }
+}
+
+
+
+/* HTML: <div class="loader"></div> */
+.audit-loader {
+  width: 60px;
+  aspect-ratio: 2;
+  --bg: no-repeat radial-gradient(circle closest-side,#ffffffa9 90%,rgba(0, 0, 0, 0));
+  background: 
+    var(--bg) 0%   50%,
+    var(--bg) 50%  50%,
+    var(--bg) 100% 50%;
+  background-size: calc(100%/3) 50%;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+    20%{background-position:0%   0%, 50%  50%,100%  50%}
+    40%{background-position:0% 100%, 50%   0%,100%  50%}
+    60%{background-position:0%  50%, 50% 100%,100%   0%}
+    80%{background-position:0%  50%, 50%  50%,100% 100%}
+}
+
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: ['class'],
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: { '2xl': '1400px' },
+    },
+    extend: {
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        noc: {
+          running: '#22c55e',
+          idle: '#94a3b8',
+          error: '#ef4444',
+          disabled: '#f59e0b',
+          autonomous: '#3b82f6',
+          assisted: '#f59e0b',
+          human: '#22c55e',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
+  },
+  plugins: [],
+}
+
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
