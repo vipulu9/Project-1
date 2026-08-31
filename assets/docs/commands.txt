@@ -1,0 +1,11 @@
+# Install PyTorch (CPU version is fine for small Whisper models)
+pip install torch torchvision torchaudio
+
+# Install OpenAI's Whisper library
+pip install -U openai-whisper
+
+winget install "FFmpeg (Essentials Build)"
+
+pip install openwakeword
+
+pip install onnxruntime
