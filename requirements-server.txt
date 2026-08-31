@@ -1,0 +1,11 @@
+# Web server only — excludes PyAudio / pyttsx3 / pygame / whisper / openwakeword
+# which require Linux system libraries unavailable on Render's containers.
+# For local voice-assistant dev, use requirements.txt instead.
+requests==2.34.2
+python-dotenv==1.2.3
+fastapi==0.115.0
+uvicorn==0.30.6
+sqlalchemy==2.0.41
+psycopg2-binary==2.9.10
+PyJWT==2.9.0
+email-validator==2.2.0

@@ -1,11 +1,16 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()  # must run before local imports so os.getenv() sees DATABASE_URL / JWT_SECRET
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
-
 from features.music.domain.musicLibrary import music
+from shared.models.database import Base, engine
+from shared.models import user as _user_model  # noqa: F401 — registers User with Base.metadata
+from shared.api.auth_router import router as auth_router
 
-load_dotenv()
+# Create tables on startup (Neon/SQLite); use Alembic migrations for production schema changes
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Project-1 API")
 
@@ -73,13 +78,19 @@ def interpret_command(command: str):
         'message': f'I heard: "{text}". I am ready for your next command.'
     }
 
+_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+if os.getenv("FRONTEND_URL"):
+    _origins.append(os.getenv("FRONTEND_URL"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(auth_router)
 
 @app.get("/")
 def read_root():
